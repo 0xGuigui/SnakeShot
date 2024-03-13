@@ -10,8 +10,22 @@ from include.lib import *
 from include.funcs_library import *
 
 def main():
-    auth_funcs()
+    print ("Welcome to SnakeShot, the vSphere inventory tool")
+    print ("This tool will list all ESXi hosts in the vSphere server and print information about the vCenter Server.")
+    print ("Developed by 0xGuigui")
+    print ("https://github.com/0xGuigui/SnakeShot")
+    print ("Version: ", version_number())
 
+    try:
+        si = vAuth()
+        if si is not None:
+            list_esxi_hosts(si)
+            print_vcenter_info(si)
+            list_linked_vcenter_servers(si)
+        else:
+            print("Failed to connect to vSphere")
+    except KeyboardInterrupt:
+        print("\nUser interrupted the program, exiting...")
 
 if __name__ == "__main__":
     main()

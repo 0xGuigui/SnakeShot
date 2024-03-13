@@ -7,9 +7,10 @@
 ##
 
 from src.auth.vAuth import *
+from src.shell.commands.version import *
 
-def auth_funcs():
-    auth_funcs = [vAuth]
-    for func in auth_funcs:
-        func()
+# def auth_funcs():
+#     auth_funcs = [vAuth]
+#     for func in auth_funcs:
+#         func()
 
