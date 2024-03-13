@@ -5,3 +5,6 @@ __pycache__/
 
 # PyInstaller files
 *.spec
+
+# config files
+config.json

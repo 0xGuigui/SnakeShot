@@ -11,3 +11,7 @@ from pyVmomi import vim, vmodl
 import ssl
 import getpass
 import re
+import requests
+import json
+import os
+import subprocess

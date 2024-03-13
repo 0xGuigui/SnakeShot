@@ -8,6 +8,7 @@
 
 from src.auth.vAuth import *
 from src.shell.commands.version import *
+from src.shell.prompt import *
 
 # def auth_funcs():
 #     auth_funcs = [vAuth]

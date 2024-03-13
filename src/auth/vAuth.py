@@ -8,40 +8,16 @@
 
 from include.lib import *
 
-def list_linked_vcenter_servers(si):
+
+def list_datacenters(si):
     """
-    List all linked vCenter servers in the vSphere server.
-    :param si: ServiceInstance, connection to the vSphere
+    List all datacenters.
     """
     content = si.RetrieveContent()
-    linked_vcenters = content.setting.QueryOptions("VirtualCenter.LinkedView")
-    if linked_vcenters:
-        for vcenter in linked_vcenters:
-            print("Linked vCenter Server:", vcenter.name)
-    else:
-        print("No linked vCenter servers found.")
-
-
-def print_vcenter_info(si):
-    """
-    Print information about the vCenter Server.
-    :param si: ServiceInstance, connection to the vCenter Server
-    """
-    about_info = si.content.about
-    print("vCenter Server version:", about_info.version)
-    print("vCenter Server build:", about_info.build)
-    print("vCenter Server OS type:", about_info.osType)
-    print("vCenter Server product name:", about_info.fullName)
-
-def list_esxi_hosts(si):
-    """
-    List all ESXi hosts in the vSphere server.
-    :param si: ServiceInstance, connection to the vSphere
-    """
-    content = si.RetrieveContent()
-    container = content.viewManager.CreateContainerView(content.rootFolder, [vim.HostSystem], True)
-    for esxi_host in container.view:
-        print(esxi_host.name)
+    datacenters = content.viewManager.CreateContainerView(content.rootFolder, [vim.Datacenter], True)
+    for dc in datacenters.view:
+        print(dc.name)
+    datacenters.Destroy()
 
 def vAuth():
     MAX_ATTEMPTS = 5
@@ -55,18 +31,45 @@ def vAuth():
             print("Invalid IP address. Please enter a valid IP address in the format X.X.X.X")
             continue
 
+        if os.path.isfile("config.json"):
+            # Charger les informations de connexion depuis le fichier config.json
+            with open("config.json", "r") as f:
+                config = json.load(f)
+                if config.get("host") == host:
+                    print("Using saved credentials")
+                    user = config.get("user")
+                    pwd = config.get("pwd")
+                    try:
+                        # Connexion avec les informations de connexion sauvegardées
+                        s = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
+                        s.check_hostname = False
+                        s.verify_mode = ssl.CERT_NONE
+                        si = SmartConnect(host=host, user=user, pwd=pwd)
+                        print("Connected to vSphere")
+                        return si
+                    except Exception as e:
+                        print("Failed to connect:", e)
+                    attempts += 1
+                    continue
+
         user = input("Enter the vSphere username: ")
         pwd = getpass.getpass("Enter the vSphere password: ")
 
         # Création du contexte SSL sans vérification du certificat
         s = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
-        s.check_hostname = False
+        s.check_hostname = False # Bypass hostname verification, must be fixed
         s.verify_mode = ssl.CERT_NONE
 
         try:
             # Tentative de connexion avec le certificat SSL
             si = SmartConnect(host=host, user=user, pwd=pwd, sslContext=s)
             print("Connected to vSphere, with SSL certificate verification")
+            save = input("Do you want to save these credentials? (y/n): ").lower()
+            if save == 'y':
+                # Sauvegarde des informations de connexion
+                with open("config.json", "w") as f:
+                    json.dump({"host": host, "user": user, "pwd": pwd}, f)
+                print("Credentials saved to config.json")
             return si
         except ssl.SSLError as e:
             # En cas d'erreur SSL, demander à l'utilisateur s'il veut continuer

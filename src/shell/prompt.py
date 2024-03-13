@@ -9,30 +9,12 @@
 from include.lib import *
 from include.funcs_library import *
 
-def prompt(command):
+def prompt(si):
     while True:
-        cmd = input("SnakeShot > ")
-        if cmd == "exit":
-            print("Exiting SnakeShot")
+        command = input("SnakeShot $ ")
+        if command == "exit":
             break
-        elif cmd == "help":
-            print("Available commands:")
-            print("  - exit: Exit SnakeShot")
-            print("  - help: Display this help message")
-            print("  - list: List all VMs")
-            print("  - snapshot: Create a snapshot")
-            print("  - revert: Revert to a snapshot")
-            print("  - delete: Delete a snapshot")
-        elif cmd == "list":
-            list_vms(si)
-        elif cmd == "snapshot":
-            create_snapshot(si)
-        elif cmd == "revert":
-            revert_snapshot(si)
-        elif cmd == "delete":
-            delete_snapshot(si)
+        elif os.path.isfile(f"commands/{command}.py"):
+            exec(open(f"commands/{command}.py").read())
         else:
-            print("Unknown command. Type 'help' for available commands.")
-
-
-            
+            print("Command not found")

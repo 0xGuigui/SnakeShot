@@ -19,9 +19,7 @@ def main():
     try:
         si = vAuth()
         if si is not None:
-            list_esxi_hosts(si)
-            print_vcenter_info(si)
-            list_linked_vcenter_servers(si)
+            prompt(si)
         else:
             print("Failed to connect to vSphere")
     except KeyboardInterrupt:
