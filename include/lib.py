@@ -6,8 +6,7 @@
 ##  Contributor(s): 0xGuigui
 ##
 
-from pyVim.connect import SmartConnect, Disconnect, Connect
-from pyVim import connect
+from pyVim.connect import SmartConnect, Disconnect
 from pyVmomi import vim, vmodl
 import ssl
 import getpass
