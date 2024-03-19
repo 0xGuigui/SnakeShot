@@ -7,7 +7,6 @@
 ##
 
 from include.lib import *
-
 def vAuth():
     MAX_ATTEMPTS = 5
     attempts = 0
@@ -36,6 +35,21 @@ def vAuth():
                         si = SmartConnect(host=host, user=user, pwd=pwd, sslContext=s) # Ajout du contexte SSL
                         print("Connected to vSphere")
                         return si
+                    except ssl.SSLError as e:
+                        print("SSL certificate verification failed:", e)
+                        choice = input("Continue connecting despite SSL certificate issue? (y/n): ").lower()
+                        if choice == 'y':
+                            # Demande de confirmation pour bypasser la vérification du certificat
+                            confirm = input("Are you sure you want to bypass SSL certificate verification? (y/n): ").lower()
+                            if confirm == 'y':
+                                # Connexion sans vérification du certificat
+                                si = SmartConnect(host=host, user=user, pwd=pwd, sslContext=s) # Utilisation du contexte SSL
+                                print("Connected to vSphere (without SSL certificate verification)")
+                                return si
+                            else:
+                                print("Returning to login.")
+                        else:
+                            print("Returning to login.")
                     except Exception as e:
                         print("Failed to connect:", e)
                     attempts += 1
