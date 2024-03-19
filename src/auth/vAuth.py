@@ -8,17 +8,6 @@
 
 from include.lib import *
 
-
-def list_datacenters(si):
-    """
-    List all datacenters.
-    """
-    content = si.RetrieveContent()
-    datacenters = content.viewManager.CreateContainerView(content.rootFolder, [vim.Datacenter], True)
-    for dc in datacenters.view:
-        print(dc.name)
-    datacenters.Destroy()
-
 def vAuth():
     MAX_ATTEMPTS = 5
     attempts = 0
@@ -41,9 +30,6 @@ def vAuth():
                     pwd = config.get("pwd")
                     try:
                         # Connexion avec les informations de connexion sauvegardées
-                        s = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
-                        s.check_hostname = False
-                        s.verify_mode = ssl.CERT_NONE
                         si = SmartConnect(host=host, user=user, pwd=pwd)
                         print("Connected to vSphere")
                         return si
@@ -80,7 +66,9 @@ def vAuth():
                 confirm = input("Are you sure you want to bypass SSL certificate verification? (y/n): ").lower()
                 if confirm == 'y':
                     # Connexion sans vérification du certificat
-                    si = SmartConnect(host=host, user=user, pwd=pwd)
+                    s = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
+                    s.verify_mode = ssl.CERT_NONE
+                    si = SmartConnect(host=host, user=user, pwd=pwd, sslContext=s)
                     print("Connected to vSphere (without SSL certificate verification)")
                     return si
                 else:
