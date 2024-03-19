@@ -30,13 +30,39 @@ def vAuth():
                     pwd = config.get("pwd")
                     try:
                         # Connexion avec les informations de connexion sauvegardées
+                        s = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
+                        s.check_hostname = False
+                        s.verify_mode = ssl.CERT_NONE
                         si = SmartConnect(host=host, user=user, pwd=pwd)
                         print("Connected to vSphere")
                         return si
+                    except ssl.SSLError as ssl_err:
+                        print("SSL certificate verification failed:", ssl_err)
+                        choice = input("Continue connecting despite SSL certificate issue? (y/n): ").lower()
+                        if choice == 'y':
+                            confirm = input("Are you sure you want to bypass SSL certificate verification? (y/n): ").lower()
+                            if confirm == 'y':
+                                # Connexion sans vérification du certificat
+                                try:
+                                    si = SmartConnect(host=host, user=user, pwd=pwd)
+                                    print("Connected to vSphere (without SSL certificate verification)")
+                                    return si
+                                except Exception as e:
+                                    print("Failed to connect:", e)
+                                    attempts += 1
+                                    continue
+                            else:
+                                print("Returning to login.")
+                                attempts += 1
+                                continue
+                        else:
+                            print("Returning to login.")
+                            attempts += 1
+                            continue
                     except Exception as e:
                         print("Failed to connect:", e)
-                    attempts += 1
-                    continue
+                        attempts += 1
+                        continue
 
         user = input("Enter the vSphere username: ")
         pwd = getpass.getpass("Enter the vSphere password: ")
@@ -66,9 +92,7 @@ def vAuth():
                 confirm = input("Are you sure you want to bypass SSL certificate verification? (y/n): ").lower()
                 if confirm == 'y':
                     # Connexion sans vérification du certificat
-                    s = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
-                    s.verify_mode = ssl.CERT_NONE
-                    si = SmartConnect(host=host, user=user, pwd=pwd, sslContext=s)
+                    si = SmartConnect(host=host, user=user, pwd=pwd)
                     print("Connected to vSphere (without SSL certificate verification)")
                     return si
                 else:
@@ -82,3 +106,5 @@ def vAuth():
 
     print("Maximum login attempts exceeded.")
     return None
+
+si = vAuth()
