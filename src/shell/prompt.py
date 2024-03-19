@@ -26,10 +26,14 @@ def load_commands():
 def prompt(si):
     commands = load_commands()
     while True:
-        command = input("SnakeShot $ ")
-        if command == "exit":
+        user_input = input("SnakeShot $ ")
+        if user_input == "exit":
             break
-        elif command in commands:
-            commands[command].run(si)
+        elif user_input in commands:
+            command_function = getattr(commands[user_input], f"run_{user_input}", None)
+            if command_function:
+                command_function(si)
+            else:
+                print(f"Command {user_input} does not have a run_{user_input} function.")
         else:
             print("Command not found")

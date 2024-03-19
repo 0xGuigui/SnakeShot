@@ -8,6 +8,8 @@
 
 from include.lib import *
 
+def run_list_datacenters(si):
+    list_datacenters(si)
 
 def list_datacenters(si):
     """
