@@ -29,11 +29,28 @@ def prompt(si):
         user_input = input("SnakeShot $ ")
         if user_input == "exit":
             break
-        elif user_input in commands:
-            command_function = getattr(commands[user_input], f"run_{user_input}", None)
-            if command_function:
-                command_function(si)
-            else:
-                print(f"Command {user_input} does not have a run_{user_input} function.")
         else:
-            print("Command not found")
+            user_input = user_input.split()
+            command = user_input[0]
+            args = user_input[1:]
+
+            if command in commands:
+                command_function = getattr(commands[command], f"run_{command}", None)
+                if command_function:
+                    try:
+                        # Essayer d'exécuter la fonction avec le paramètre 'si' et les arguments supplémentaires
+                        command_function(si, *args)
+                    except TypeError:
+                        try:
+                            # Si cela échoue, essayer d'exécuter la fonction avec seulement le paramètre 'si'
+                            command_function(si)
+                        except TypeError:
+                            try:
+                                # Si cela échoue aussi, essayer d'exécuter la fonction sans aucun paramètre
+                                command_function()
+                            except Exception as e:
+                                print(f"An error occurred while executing the command {command}: {e}")
+                else:
+                    print(f"Command {command} does not have a run_{command} function.")
+            else:
+                print("Command not found")

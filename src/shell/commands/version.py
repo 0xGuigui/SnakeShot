@@ -9,11 +9,11 @@
 from include.lib import *
 from include.funcs_library import *
 
-def version_number():
-    version_number = "0.1.0"
-    return version_number
+def run_version():
+    version()
 
-def version(version_number):
+def version():
+    version_number = "0.1.0"
     print ("SnakeShot version ", version_number)
     print ("Developed by 0xGuigui\n")
     print ("Versioning scheme: A.B.C")

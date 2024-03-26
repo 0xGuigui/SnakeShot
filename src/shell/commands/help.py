@@ -6,15 +6,21 @@
 ##  Contributor(s): 0xGuigui
 ##
 
-def run_help():
-    help()
+def run_help(si):
+    help(si)
 
-def help():
+def help(si):
     """
     Display help message.
     """
     print("Available commands:")
-    print("  - list_datacenters: List all datacenters")
-    print("  - list_vms: List all VMs")
-    print("  - help: Display this help message")
-    print("  - exit: Exit the shell")
+    print("  - help: Display help message.")
+    print("  - version: Display version information.")
+    print("  - list_datacenters: List all datacenters.")
+    print("  - list_vms: List all VMs.")
+    print("  - list_snapshot: List all snapshots.")
+    print("  - create_snapshot: Create a snapshot.")
+    print("  - revert_snapshot: Revert a snapshot.")
+    print("  - delete_snapshot: Delete a snapshot.")
+    print("  - exit: Exit the program.")
+    print("  - help: Display help message.")
