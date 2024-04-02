@@ -47,3 +47,27 @@ def download_vm(si):
     # Write the OVF descriptor to a file
     with open(f"{directory}/{vm_name}-{timestamp}.ovf", "w") as file:
         file.write(ovf_descriptor.ovfDescriptor)
+
+    # Get a NFC lease for the VM
+    lease = vm.ExportVm()
+
+    # Wait for the lease to be ready
+    while lease.state == vim.HttpNfcLease.State.initializing:
+        time.sleep(1)
+
+    if lease.state == vim.HttpNfcLease.State.ready:
+        # Download each of the files in the lease
+        for device_url in lease.info.deviceUrl:
+            if device_url.disk:
+                download_file(device_url.url, f"{directory}/{vm_name}-{timestamp}.vmdk")
+            elif device_url.targetId.endswith('.nvram'):
+                download_file(device_url.url, f"{directory}/{vm_name}-{timestamp}.nvram")
+
+def download_file(url, filename):
+    """
+    Download a file from a URL.
+    """
+    response = requests.get(url, stream=True, verify=False)
+    with open(filename, 'wb') as file:
+        for chunk in response.iter_content(chunk_size=8192):
+            file.write(chunk)
