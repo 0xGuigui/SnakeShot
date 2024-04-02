@@ -8,14 +8,17 @@
 
 from include.lib import *
 
-def get_obj(content, vimtype, name):
+def get_obj(content, vimtype, name=None):
     """
     Get the vsphere object associated with a given text name.
     """
     obj = None
     container = content.viewManager.CreateContainerView(content.rootFolder, vimtype, True)
-    for c in container.view:
-        if c.name == name:
-            obj = c
-            break
+    if name:
+        for c in container.view:
+            if c.name == name:
+                obj = c
+                break
+    else:
+        obj = container.view
     return obj
