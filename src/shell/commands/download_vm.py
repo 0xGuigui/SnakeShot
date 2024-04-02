@@ -65,14 +65,17 @@ def download_vm(si):
             elif device_url.targetId.endswith('.mf'):
                 download_file(device_url.url, f"{directory}/{vm_name}-{timestamp}.mf")
 
-def download_file(url, filename):
+def download_file(url, filename, file_size=None):
     """
     Download a file from a URL.
     """
     response = requests.get(url, stream=True, verify=False)
 
-    # Get the total file size
-    file_size = int(response.headers.get('Content-Length', 0))
+    # If file size is not provided, try to get it from the response headers
+    if file_size is None:
+        content_length = response.headers.get('Content-Length')
+        if content_length is not None:
+            file_size = int(content_length)
 
     # Create a progress bar
     progress = tqdm(response.iter_content(8192), f"Downloading {filename}", total=file_size, unit="B", unit_scale=True, unit_divisor=1024, bar_format='{l_bar}{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}, {rate_fmt}{postfix}]')
