@@ -64,6 +64,8 @@ def download_vm(si):
                 download_file(device_url.url, f"{directory}/{vm_name}-{timestamp}.nvram")
             elif device_url.targetId.endswith('.mf'):
                 download_file(device_url.url, f"{directory}/{vm_name}-{timestamp}.mf")
+            else:
+                print(f"Unknown file: {device_url.targetId}")
 
 def download_file(url, filename, file_size=None):
     """
