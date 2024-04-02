@@ -1,0 +1,11 @@
+# Compilation folders with PyInstaller
+build/
+dist/
+__pycache__/
+
+# PyInstaller files
+*.spec
+
+# config files
+config.json
+downloaded_vms/
