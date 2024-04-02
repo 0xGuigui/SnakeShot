@@ -37,19 +37,17 @@ def prompt(si):
             if command in commands:
                 command_function = getattr(commands[command], f"run_{command}", None)
                 if command_function:
+                    # Get the parameters of the command function
+                    params = inspect.signature(command_function).parameters
+
                     try:
-                        # Essayer d'exécuter la fonction avec le paramètre 'si' et les arguments supplémentaires
-                        command_function(si, *args)
-                    except TypeError:
-                        try:
-                            # Si cela échoue, essayer d'exécuter la fonction avec seulement le paramètre 'si'
-                            command_function(si)
-                        except TypeError:
-                            try:
-                                # Si cela échoue aussi, essayer d'exécuter la fonction sans aucun paramètre
-                                command_function()
-                            except Exception as e:
-                                print(f"An error occurred while executing the command {command}: {e}")
+                        # If 'si' is a parameter of the function, pass it
+                        if 'si' in params:
+                            command_function(si, *args)
+                        else:
+                            command_function(*args)
+                    except Exception as e:
+                        print(f"An error occurred while executing the command {command}: {e}")
                 else:
                     print(f"Command {command} does not have a run_{command} function.")
             else:
