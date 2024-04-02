@@ -68,6 +68,17 @@ def download_file(url, filename):
     Download a file from a URL.
     """
     response = requests.get(url, stream=True, verify=False)
+
+    # Get the total file size
+    file_size = int(response.headers.get('Content-Length', 0))
+
+    # Create a progress bar
+    progress = tqdm(response.iter_content(8192), f"Downloading {filename}", total=file_size, unit="B", unit_scale=True, unit_divisor=1024, bar_format='{l_bar}{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}, {rate_fmt}{postfix}]')
+
     with open(filename, 'wb') as file:
-        for chunk in response.iter_content(chunk_size=8192):
-            file.write(chunk)
+        for data in progress.iterable:
+            # Write data read to the file
+            file.write(data)
+
+            # Update the progress bar
+            progress.update(len(data))
