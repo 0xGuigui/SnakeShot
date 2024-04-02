@@ -35,8 +35,11 @@ def download_vm(si):
     # Get the OvfManager
     ovf_manager = si.content.ovfManager
 
+    # Create an OvfCreateDescriptorParams object
+    cdp = vim.OvfCreateDescriptorParams()
+
     # Export the VM to OVF
-    ovf_descriptor = ovf_manager.CreateDescriptor(obj=vm, cdp=None)
+    ovf_descriptor = ovf_manager.CreateDescriptor(obj=vm, cdp=cdp)
 
     # Create a timestamp
     timestamp = datetime.now().strftime("%d-%m-%Y-%H-%M-%S")
