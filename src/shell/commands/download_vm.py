@@ -27,8 +27,11 @@ def download_vm(si):
         print("Could not find a VM with the name ", vm_name)
         return
 
+    # Create a timestamp
+    timestamp = datetime.now().strftime("%d-%m-%Y-%H-%M-%S")
+
     # Create the directory if it doesn't exist
-    directory = "downloaded_vms/" + vm_name
+    directory = f"downloaded_vms/{vm_name}/{timestamp}"
     if not os.path.exists(directory):
         os.makedirs(directory)
 
@@ -40,9 +43,6 @@ def download_vm(si):
 
     # Export the VM to OVF
     ovf_descriptor = ovf_manager.CreateDescriptor(obj=vm, cdp=cdp)
-
-    # Create a timestamp
-    timestamp = datetime.now().strftime("%d-%m-%Y-%H-%M-%S")
 
     # Write the OVF descriptor to a file
     with open(f"{directory}/{vm_name}-{timestamp}.ovf", "w") as file:
