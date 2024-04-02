@@ -7,6 +7,7 @@
 ##
 
 from src.auth.vAuth import *
+from src import *
 from src.shell.commands.version import *
 from src.shell.prompt import *
 
