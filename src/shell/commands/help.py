@@ -6,10 +6,10 @@
 ##  Contributor(s): 0xGuigui
 ##
 
-def run_help(si):
-    help(si)
+def run_help():
+    help()
 
-def help(si):
+def help():
     """
     Display help message.
     """
