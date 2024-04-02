@@ -62,6 +62,8 @@ def download_vm(si):
                 download_file(device_url.url, f"{directory}/{vm_name}-{timestamp}.vmdk")
             elif device_url.targetId.endswith('.nvram'):
                 download_file(device_url.url, f"{directory}/{vm_name}-{timestamp}.nvram")
+            elif device_url.targetId.endswith('.mf'):
+                download_file(device_url.url, f"{directory}/{vm_name}-{timestamp}.mf")
 
 def download_file(url, filename):
     """
