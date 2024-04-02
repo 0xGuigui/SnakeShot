@@ -22,5 +22,6 @@ def help():
     print("  - create_snapshot: Create a snapshot.")
     print("  - revert_snapshot: Revert a snapshot.")
     print("  - delete_snapshot: Delete a snapshot.")
+    print("  - download_vm: Download a VM.")
     print("  - exit: Exit the program.")
     print("  - help: Display help message.")
