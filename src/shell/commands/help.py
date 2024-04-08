@@ -25,3 +25,5 @@ def help():
     print("  - download_vm: Download a VM.")
     print("  - exit: Exit the program.")
     print("  - help: Display help message.")
+    print("  - ls: List all files in the current directory with colors.")
+    print("  - reload_commands: Reload the commands from the commands directory.")
