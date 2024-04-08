@@ -9,6 +9,9 @@
 from include.lib import *
 
 def run_list_vms(si):
+    """
+    Run the VM listing and optionally save to a file.
+    """
     save_output = input("Would you like to save the output to a file? (Y/N) ")
     if save_output.lower() in ['o', 'oui', 'y', 'yes']:
         file_format = input("Choose the file format (1 for txt / 2 for csv): ")
@@ -25,31 +28,26 @@ def list_vms(si, file_format=None):
     """
     List all VMs.
     """
-
-    # Get content
     content = si.RetrieveContent()
 
-    # Get VMs
     container = content.viewManager.CreateContainerView(content.rootFolder, [vim.VirtualMachine], True)
     vm_names = [vm.name for vm in container.view]
+    container.Destroy()
 
-    # Sort VM names
     vm_names.sort()
 
-    # Print VM names or write to file
     if file_format:
         if file_format.lower() == 'txt':
-            with open('vm_names.txt', 'w') as f:
+            with open('vm_names.txt', 'w') as file:
                 for vm_name in vm_names:
-                    f.write(f"{vm_name}\n")
+                    file.write(f"{vm_name}\n")
             print("VM names saved to vm_names.txt")
         elif file_format.lower() == 'csv':
-            with open('vm_names.csv', 'w', newline='') as f:
-                writer = csv.writer(f)
+            with open('vm_names.csv', 'w', newline='') as file:
+                writer = csv.writer(file)
                 for vm_name in vm_names:
                     writer.writerow([vm_name])
             print("VM names saved to vm_names.csv")
     else:
         for vm_name in vm_names:
             print(vm_name)
-    container.Destroy()
