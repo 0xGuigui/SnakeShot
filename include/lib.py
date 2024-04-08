@@ -6,8 +6,8 @@
 ##  Contributor(s): 0xGuigui
 ##
 
-from pyVim.connect import SmartConnect, Disconnect
-from pyVmomi import vim, vmodl
+# Imports all the necessary libraries
+import sys
 import ssl
 import getpass
 import re
@@ -15,9 +15,13 @@ import requests
 import json
 import os
 import subprocess
-from datetime import datetime
-import inspect
-import time
-from tqdm import tqdm
+import importlib
 import csv
-from colorama import Fore, Style, init
+import time
+import inspect
+
+from pyVim.connect import SmartConnect, Disconnect
+from pyVmomi import vim, vmodl
+from datetime import datetime
+from tqdm import tqdm
+from termcolor import colored, Style
