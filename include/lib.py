@@ -20,3 +20,4 @@ import inspect
 import time
 from tqdm import tqdm
 import csv
+from colorama import Fore, Style, init
