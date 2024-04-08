@@ -15,14 +15,13 @@ def ls():
     """
     List all files in the current directory.
     """
-    init(autoreset=True)
     files = os.listdir('.')
     for file in files:
         if os.path.isdir(file):
-            print(Fore.BLUE + file)
+            print(Fore.BLUE + file + Style.RESET_ALL)  # Blue for directories
         elif os.path.isfile(file) and os.access(file, os.X_OK):
-            print(Fore.GREEN + file)
+            print(Fore.GREEN + file + Style.RESET_ALL)  # Green for executable files
         elif file.startswith('.'):
-            print(Fore.LIGHTBLACK_EX + file)
+            print(Fore.LIGHTBLACK_EX + file + Style.RESET_ALL)  # Grey for hidden files
         else:
-            print(Style.RESET_ALL + file)
+            print(file)  # White for other files
