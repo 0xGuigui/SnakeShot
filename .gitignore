@@ -9,3 +9,5 @@ __pycache__/
 # config files
 config.json
 downloaded_vms/
+vm_names.csv
+vm_names.txt
