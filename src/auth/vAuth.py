@@ -8,11 +8,11 @@
 
 from include.lib import *
 
-connected_ip = None
+
 
 def vAuth():
     global connected_ip
-    MAX_ATTEMPTS = 5
+    MAX_ATTEMPTS = 3
     attempts = 0
 
     ip_pattern = re.compile(r"^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$")
@@ -24,6 +24,8 @@ def vAuth():
             continue
 
         connected_ip = host
+        print(f"Connecting to {connected_ip}...")
+
         if os.path.isfile("config.json"):
             # Charger les informations de connexion depuis le fichier config.json
             with open("config.json", "r") as f:
