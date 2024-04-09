@@ -22,9 +22,6 @@ def vAuth():
             print("Invalid IP address. Please enter a valid IP address in the format X.X.X.X")
             continue
 
-        connected_ip = host
-        print(f"Connecting to {connected_ip}...")
-
         if os.path.isfile("config.json"):
             with open("config.json", "r") as f:
                 config = json.load(f)
@@ -63,7 +60,7 @@ def vAuth():
                 with open("config.json", "w") as f:
                     json.dump({"host": host, "user": user, "pwd": pwd}, f)
                 print("Credentials saved to config.json")
-            return si, connected_ip
+            return si
         except ssl.SSLError as e:
             # En cas d'erreur SSL, demander à l'utilisateur s'il veut continuer
             print("SSL certificate verification failed:", e)
@@ -75,7 +72,7 @@ def vAuth():
                     # Connexion sans vérification du certificat
                     si = SmartConnect(host=host, user=user, pwd=pwd)
                     print("Connected to vSphere (without SSL certificate verification)")
-                    return si, connected_ip
+                    return si
                 else:
                     print("Returning to login.")
             else:
