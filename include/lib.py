@@ -24,4 +24,4 @@ from pyVim.connect import SmartConnect, Disconnect
 from pyVmomi import vim, vmodl
 from datetime import datetime
 from tqdm import tqdm
-from termcolor import colored
+from colorama import Fore, Style
