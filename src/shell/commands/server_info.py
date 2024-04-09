@@ -1,3 +1,17 @@
+##
+##  server_info.py
+##  src/shell/commands
+##
+##  Created by 0xGuigui on 02/04/2024.
+##  Contributor(s): 0xGuigui
+##
+
+from include.lib import *
+from src.get_obj import *
+
+def run_server_info(si):
+    server_info(si)
+
 def server_info(si):
     # Récupération des informations de l'hôte connecté
     content = si.RetrieveContent()
