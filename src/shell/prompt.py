@@ -6,10 +6,10 @@
 ##  Contributor(s): 0xGuigui
 ##
 
+import importlib.util
+import os
 from include.lib import *
 from include.funcs_library import *
-import os
-import importlib.util
 from glob import glob
 
 def load_commands():
@@ -24,9 +24,16 @@ def load_commands():
     return commands
 
 def prompt(si):
+    content = si.RetrieveContent()
+    about = content.about
+    host_view = content.viewManager.CreateContainerView(content.rootFolder, [vim.HostSystem], True)
+    hosts = host_view.view
+    host_view.Destroy()
+
     commands = load_commands()
     while True:
-        user_input = input("SnakeShot $ ")
+        ip_address = hosts[0].summary.managementServerIp if hosts else "Unknown"  # Assuming there's at least one host
+        user_input = input(f"SnakeShot - Server: {ip_address} > ").strip()
         if user_input == "exit":
             break
         else:

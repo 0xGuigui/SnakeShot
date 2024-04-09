@@ -17,6 +17,7 @@ def list_snapshot(si):
     print("2. Specific VM")
     choice = input("Enter your choice: ")
 
+    # If user wants to list snapshots for all VMs
     if choice == "1":
         content = si.RetrieveContent()
         container = content.viewManager.CreateContainerView(content.rootFolder, [vim.VirtualMachine], True)
@@ -27,6 +28,7 @@ def list_snapshot(si):
                     print(f"  - {snapshot.name}")
         container.Destroy()
 
+    # If user wants to list snapshots for a specific VM
     elif choice == "2":
         vm_name = input("Enter the name of the VM: ")
         content = si.RetrieveContent()
@@ -38,6 +40,8 @@ def list_snapshot(si):
                     for snapshot in vm.snapshot.rootSnapshotList:
                         print(f"  - {snapshot.name}")
         container.Destroy()
+
+    # If user enters an invalid choice
     else:
         print("Invalid choice")
         return

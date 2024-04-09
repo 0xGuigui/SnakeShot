@@ -15,8 +15,13 @@ def list_datacenters(si):
     """
     List all datacenters.
     """
+    # Get content
     content = si.RetrieveContent()
+
+    # Get datacenters
     datacenters = content.viewManager.CreateContainerView(content.rootFolder, [vim.Datacenter], True)
+
+    # Print datacenters
     for dc in datacenters.view:
         print(dc.name)
     datacenters.Destroy()

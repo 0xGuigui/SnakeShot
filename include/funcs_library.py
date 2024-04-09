@@ -10,9 +10,4 @@ from src.auth.vAuth import *
 from src import *
 from src.shell.commands.version import *
 from src.shell.prompt import *
-
-# def auth_funcs():
-#     auth_funcs = [vAuth]
-#     for func in auth_funcs:
-#         func()
-
+from src.shell.commands.version import version_number
