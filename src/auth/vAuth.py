@@ -52,19 +52,20 @@ def vAuth():
             # Tentative de connexion avec le certificat SSL
             si = SmartConnect(host=host, user=user, pwd=pwd, sslContext=s)
             print("Connected to vSphere, with SSL certificate verification")
-            save = input("Do you want to save these credentials? (y/n): ").lower()
-            if save == 'y':
-                # Sauvegarde des informations de connexion
-                with open("config.json", "w") as f:
-                    json.dump({"host": host, "user": user, "pwd": pwd}, f)
-                print("Credentials saved to config.json")
-            return si
+            # save = input("Do you want to save these credentials? (y/n): ").lower()
+            # if save == 'y':
+            #     # Sauvegarde des informations de connexion
+            #     with open("config.json", "w") as f:
+            #         json.dump({"host": host, "user": user, "pwd": pwd}, f)
+            #     print("Credentials saved to config.json")
+            # return si
         except ssl.SSLError as e:
             # En cas d'erreur SSL, demander à l'utilisateur s'il veut continuer
             print("SSL certificate verification failed:", e)
             choice = input("Continue connecting despite SSL certificate issue? (y/n): ").lower()
             if choice == 'y':
                 # Demande de confirmation pour bypasser la vérification du certificat
+                print("By bypassing, your connection will be less secure, and may be vulnerable to MITM attacks, or other security threats. SnakeShot is not responsible for any security breaches that may occur as a result of bypassing SSL certificate verification.")
                 confirm = input("Are you sure you want to bypass SSL certificate verification? (y/n): ").lower()
                 if confirm == 'y':
                     # Connexion sans vérification du certificat
