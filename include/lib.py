@@ -25,5 +25,3 @@ from pyVmomi import vim, vmodl
 from datetime import datetime
 from tqdm import tqdm
 from colorama import Fore, Style
-
-connected_ip = None

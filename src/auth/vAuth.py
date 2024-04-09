@@ -8,6 +8,8 @@
 
 from include.lib import *
 
+connected_ip = None
+
 def vAuth():
     global connected_ip
     MAX_ATTEMPTS = 3
@@ -25,7 +27,6 @@ def vAuth():
         print(f"Connecting to {connected_ip}...")
 
         if os.path.isfile("config.json"):
-            # Charger les informations de connexion depuis le fichier config.json
             with open("config.json", "r") as f:
                 config = json.load(f)
                 if config.get("host") == host:
