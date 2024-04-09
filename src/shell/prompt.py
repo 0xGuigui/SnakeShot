@@ -25,9 +25,8 @@ def load_commands():
 
 def prompt(si):
     commands = load_commands()
-    content = si.RetrieveContent()
     while True:
-        user_input = input(f"SnakeShot {content.about.ipAddress} > ").strip()
+        user_input = input(f"SnakeShot {host} > ").strip()
         if user_input == "exit":
             break
         else:
