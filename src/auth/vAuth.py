@@ -8,8 +8,6 @@
 
 from include.lib import *
 
-connected_ip = None
-
 def vAuth():
     global connected_ip
     MAX_ATTEMPTS = 3
