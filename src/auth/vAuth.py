@@ -45,8 +45,8 @@ def vAuth():
 
         # Création du contexte SSL sans vérification du certificat
         s = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
-        s.check_hostname = False  # Bypass hostname verification, must be fixed
-        s.verify_mode = ssl.CERT_NONE
+        s.check_hostname = True
+        s.verify_mode = ssl.CERT_REQUIRED
 
         try:
             # Tentative de connexion avec le certificat SSL
@@ -68,7 +68,10 @@ def vAuth():
                 confirm = input("Are you sure you want to bypass SSL certificate verification? (y/n): ").lower()
                 if confirm == 'y':
                     # Connexion sans vérification du certificat
-                    si = SmartConnect(host=host, user=user, pwd=pwd)
+                    s = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
+                    s.check_hostname = False
+                    s.verify_mode = ssl.CERT_NONE
+                    si = SmartConnect(host=host, user=user, pwd=pwd, sslContext=s)
                     print("Connected to vSphere (without SSL certificate verification)")
                     return si
                 else:
