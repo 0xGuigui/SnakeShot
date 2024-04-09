@@ -10,22 +10,13 @@ from include.lib import *
 from src.get_obj import *
 
 def run_download_vm(si):
-    save_to_file = input("Would you like to save the list of VMs to a file? (Y/N) ")
-    if save_to_file.lower() in ['o', 'oui', 'y', 'yes']:
-        file_format = input("Choose the file format (txt/csv): ")
-        file_path = input("Enter the path to save the file: ")
-        if file_format.lower() in ['txt', 'csv']:
-            download_vm(si, save_to_file=True, file_format=file_format.lower(), file_path=file_path)
-        else:
-            print("Unsupported file format. Supported formats are txt and csv.")
-    else:
-        download_vm(si)
+    download_vm(si)
 
-def download_vm(si, save_to_file=False, file_format=None, file_path=None):
+def download_vm(si):
     """
-    Download a VM and its associated files.
+    Download a VM.
     """
-    # Ask the user which VM (name) they want to download
+    # Ask the user which vm (name) he wants to download
     vm_name = input("Enter the name of the VM you want to download: ")
 
     # Find the VM
@@ -75,23 +66,6 @@ def download_vm(si, save_to_file=False, file_format=None, file_path=None):
                 download_file(device_url.url, f"{directory}/{vm_name}-{timestamp}.mf")
             else:
                 print(f"Unknown file: {device_url.targetId}")
-
-    # Save VM list to file if requested
-    if save_to_file and file_format and file_path:
-        save_vm_list(vm_name, timestamp, file_format, file_path)
-
-def save_vm_list(vm_name, timestamp, file_format, file_path):
-    """
-    Save VM list to a file (txt or csv).
-    """
-    vm_data = [vm_name, timestamp]
-    if file_format == 'txt':
-        with open(file_path, 'a') as file:
-            file.write(f"VM Name: {vm_name}, Timestamp: {timestamp}\n")
-    elif file_format == 'csv':
-        with open(file_path, 'a', newline='') as file:
-            writer = csv.writer(file)
-            writer.writerow(vm_data)
 
 def download_file(url, filename, file_size=None):
     """
