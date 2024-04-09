@@ -8,10 +8,10 @@
 
 from include.lib import *
 
-host = None
+connected_ip = None
 
 def vAuth():
-    global host
+    global connected_ip
     MAX_ATTEMPTS = 5
     attempts = 0
 
@@ -23,6 +23,7 @@ def vAuth():
             print("Invalid IP address. Please enter a valid IP address in the format X.X.X.X")
             continue
 
+        connected_ip = host
         if os.path.isfile("config.json"):
             # Charger les informations de connexion depuis le fichier config.json
             with open("config.json", "r") as f:
