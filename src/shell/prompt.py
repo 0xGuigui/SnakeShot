@@ -27,12 +27,13 @@ def prompt(si):
     content = si.RetrieveContent()
     about = content.about
     host_view = content.viewManager.CreateContainerView(content.rootFolder, [vim.HostSystem], True)
-    host = host_view.view
+    hosts = host_view.view
     host_view.Destroy()
 
     commands = load_commands()
     while True:
-        user_input = input(f"SnakeShot - Server: {host.summary.managementServerIp} > ").strip()
+        ip_address = hosts[0].summary.managementServerIp if hosts else "Unknown"  # Assuming there's at least one host
+        user_input = input(f"SnakeShot - Server: {ip_address} > ").strip()
         if user_input == "exit":
             break
         else:
