@@ -24,9 +24,15 @@ def load_commands():
     return commands
 
 def prompt(si):
+    content = si.RetrieveContent()
+    about = content.about
+    host_view = content.viewManager.CreateContainerView(content.rootFolder, [vim.HostSystem], True)
+    host = host_view.view
+    host_view.Destroy()
+
     commands = load_commands()
     while True:
-        user_input = input(f"SnakeShot - Server: > ").strip()
+        user_input = input(f"SnakeShot - Server: {host.summary.managementServerIp} > ").strip()
         if user_input == "exit":
             break
         else:
