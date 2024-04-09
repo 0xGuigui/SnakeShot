@@ -9,11 +9,11 @@
 from include.lib import *
 from src.get_obj import *
 
-def run_power_on(si):
+def run_power_on_vm(si):
     vm_name = input("Enter the name of the VM you want to power on: ")
-    power_on(si, vm_name)
+    power_on_vm(si, vm_name)
 
-def power_on(si, vm_name):
+def power_on_vm(si, vm_name):
     content = si.RetrieveContent()
     vm = get_obj(content, [vim.VirtualMachine], vm_name)
 

@@ -9,11 +9,11 @@
 from include.lib import *
 from src.get_obj import *
 
-def run_power_off(si):
+def run_power_off_vm(si):
     vm_name = input("Enter the name of the VM you want to power off: ")
-    power_off(si, vm_name)
+    power_off_vm(si, vm_name)
 
-def power_off(si, vm_name, shutdown_type=None):
+def power_off_vm(si, vm_name, shutdown_type=None):
     content = si.RetrieveContent()
     vm = get_obj(content, [vim.VirtualMachine], vm_name)
 
