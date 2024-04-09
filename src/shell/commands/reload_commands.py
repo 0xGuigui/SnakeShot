@@ -12,15 +12,19 @@ def run_reload_commands():
     reload_commands()
 
 def reload_commands():
-    commands_dir = "/src/shell/commands/"
+    commands_dir = "src/shell/commands"
     sys.path.insert(0, commands_dir)
 
-    for file in os.listdir(commands_dir):
-        if file.endswith('.py'):
-            module_name = file[:-3]  # remove .py extension
-            if module_name in sys.modules:
-                # If the module was previously imported, reload it
-                importlib.reload(sys.modules[module_name])
-            else:
-                # Otherwise, import the module
-                globals()[module_name] = importlib.import_module(module_name)
+    for filename in os.listdir(commands_dir):
+        if filename.endswith(".py"):
+            module_name = filename[:-3]  # remove .py extension
+            try:
+                if module_name in sys.modules:
+                    # If module is already imported, reload it
+                    importlib.reload(sys.modules[module_name])
+                else:
+                    # Otherwise, import the module
+                    importlib.import_module(module_name)
+                print(f"Module {module_name} reloaded successfully.")
+            except SyntaxError:
+                print(f"Failed to reload module {module_name} due to syntax errors.")
