@@ -12,7 +12,7 @@ from include.lib import *
 from include.funcs_library import *
 from glob import glob
 
-connected_ip = None
+connected_ip = ""
 
 def load_commands():
     commands = {}
