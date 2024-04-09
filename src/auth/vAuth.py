@@ -10,7 +10,7 @@ from include.lib import *
 
 host = None
 
-def vAuth():
+def vAuth(host=None):
     MAX_ATTEMPTS = 5
     attempts = 0
 
