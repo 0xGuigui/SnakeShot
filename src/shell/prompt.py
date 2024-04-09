@@ -26,6 +26,7 @@ def load_commands():
     return commands
 
 def prompt(si):
+    global connected_ip
     commands = load_commands()
     while True:
         user_input = input(f"SnakeShot - Server: {connected_ip} > ").strip()
