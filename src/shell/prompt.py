@@ -6,7 +6,6 @@
 ##  Contributor(s): 0xGuigui
 ##
 
-
 import importlib.util
 import os
 from src.auth.vAuth import connected_ip
@@ -17,6 +16,7 @@ from glob import glob
 def load_commands():
     commands = {}
     command_files = glob("src/shell/commands/*.py")
+    print(connected_ip)
     for file_path in command_files:
         file_name = os.path.basename(file_path)[:-3]  # Remove the .py extension
         spec = importlib.util.spec_from_file_location(file_name, file_path)
