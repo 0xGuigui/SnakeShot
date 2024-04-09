@@ -18,9 +18,10 @@ def server_info(si):
     """
     content = si.RetrieveContent()
     about_info = content.about
+    host_system = get_obj(content, [vim.HostSystem])
 
     print("Server information:")
-    print(f"IP Address: {si.host}")
+    print(f"IP Address: {host_system.summary.managementServerIp}")
     print(f"Name: {about_info.name}")
     print(f"Full Name: {about_info.fullName}")
     print(f"Vendor: {about_info.vendor}")
