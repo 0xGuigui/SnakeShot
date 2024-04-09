@@ -12,12 +12,9 @@ from include.lib import *
 from include.funcs_library import *
 from glob import glob
 
-connected_ip = None
-
 def load_commands():
     commands = {}
     command_files = glob("src/shell/commands/*.py")
-    print(connected_ip)
     for file_path in command_files:
         file_name = os.path.basename(file_path)[:-3]  # Remove the .py extension
         spec = importlib.util.spec_from_file_location(file_name, file_path)
@@ -27,10 +24,9 @@ def load_commands():
     return commands
 
 def prompt(si):
-    global connected_ip
     commands = load_commands()
     while True:
-        user_input = input(f"SnakeShot - Server: {connected_ip} > ").strip()
+        user_input = input(f"SnakeShot - Server: > ").strip()
         if user_input == "exit":
             break
         else:
