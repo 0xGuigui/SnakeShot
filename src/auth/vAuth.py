@@ -7,10 +7,8 @@
 ##
 
 from include.lib import *
-from src.shell.prompt import connected_ip
 
 def vAuth():
-    global connected_ip
     MAX_ATTEMPTS = 3
     attempts = 0
 
