@@ -44,6 +44,11 @@ def download_vm(si, vm_names):
             print("Could not find a VM with the name ", vm_name)
             continue
 
+        if vm.runtime.powerState == 'poweredOn':
+            print(f"Downloading of VM {vm_name} has been disabled by SnakeShot for security reasons, please power off the VM before downloading it.")
+            print(f"Refer to the VMWare documentation for more information on how to download a powered on VM: https://kb.vmware.com/s/article/1006333")
+            continue
+
         timestamp = datetime.now().strftime("%d-%m-%Y-%H-%M-%S")
         directory = f"downloaded_vms/{vm_name}/{timestamp}"
         if not os.path.exists(directory):
