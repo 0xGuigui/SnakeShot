@@ -6,10 +6,12 @@
 ##  Contributor(s): 0xGuigui
 ##
 
+
+import importlib.util
+import os
+from src.auth.vAuth import connected_ip
 from include.lib import *
 from include.funcs_library import *
-import os
-import importlib.util
 from glob import glob
 
 def load_commands():
