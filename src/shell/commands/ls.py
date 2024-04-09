@@ -20,8 +20,8 @@ def ls():
         if os.path.isdir(file):
             print(Fore.BLUE + file + Style.RESET_ALL)  # Blue for directories
         elif os.path.isfile(file) and os.access(file, os.X_OK):
-            print(Fore.GREEN + file + Style.RESET_ALL)  # Green for executable files
+            print(Fore.LIGHTGREEN_EX + file + Style.RESET_ALL)  # Light green for executable files
         elif file.startswith('.'):
-            print(Fore.LIGHTBLACK_EX + file + Style.RESET_ALL)  # Grey for hidden files
+            print(Fore.LIGHTBLACK_EX + file + Style.RESET_ALL)  # Dark grey for hidden files
         else:
             print(file)  # White for other files
