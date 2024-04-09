@@ -8,7 +8,6 @@
 
 import importlib.util
 import os
-from src.auth.vAuth import connected_ip
 from include.lib import *
 from include.funcs_library import *
 from glob import glob
