@@ -26,7 +26,7 @@ def load_commands():
 def prompt(si):
     commands = load_commands()
     while True:
-        user_input = input(f"SnakeShot {host} > ").strip()
+        user_input = input(f"SnakeShot - Server: {connected_ip} > ").strip()
         if user_input == "exit":
             break
         else:
