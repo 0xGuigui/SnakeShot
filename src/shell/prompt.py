@@ -13,6 +13,8 @@ from include.lib import *
 from include.funcs_library import *
 from glob import glob
 
+connected_ip = None
+
 def load_commands():
     commands = {}
     command_files = glob("src/shell/commands/*.py")

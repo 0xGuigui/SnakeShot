@@ -7,8 +7,7 @@
 ##
 
 from include.lib import *
-
-connected_ip = None
+from src.shell.prompt import connected_ip
 
 def vAuth():
     global connected_ip
