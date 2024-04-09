@@ -13,12 +13,20 @@ def run_server_info(si):
     server_info(si)
 
 def server_info(si):
+    """
+    Print information about the vSphere server.
+    """
     content = si.RetrieveContent()
-    host = content.about.apiVersion
-    print(f"Connected to the server with the API version {host}.")
-    print(f"Server type: {content.about.apiType}")
-    print(f"Server UUID: {content.about.instanceUuid}")
-    print(f"Server name: {content.about.fullName}")
-    print(f"Server version: {content.about.version}")
-    print(f"Server build: {content.about.build}")
-    print(f"Server ip: {content.about.ipAddress}")
+    about_info = content.about
+
+    print("Server information:")
+    print(f"IP Address: {si.host}")
+    print(f"Name: {about_info.name}")
+    print(f"Full Name: {about_info.fullName}")
+    print(f"Vendor: {about_info.vendor}")
+    print(f"Version: {about_info.version}")
+    print(f"Build: {about_info.build}")
+    print(f"OS Type: {about_info.osType}")
+    print(f"Product Line ID: {about_info.productLineId}")
+    print(f"API Type: {about_info.apiType}")
+    print(f"API Version: {about_info.apiVersion}")
