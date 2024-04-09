@@ -48,7 +48,6 @@ def vAuth():
         s.check_hostname = True
         s.verify_mode = ssl.CERT_REQUIRED
 
-
         try:
             # Tentative de connexion avec le certificat SSL
             si = SmartConnect(host=host, user=user, pwd=pwd, sslContext=s)
@@ -60,9 +59,7 @@ def vAuth():
                     json.dump({"host": host, "user": user, "pwd": pwd}, f)
                 print("Credentials saved to config.json")
             return si
-        except Exception as e:
-            print("Failed to connect:", type(e).__name__, e)
-        ## except ssl.SSLError as e:
+        except ssl.SSLError as e:
             # En cas d'erreur SSL, demander à l'utilisateur s'il veut continuer
             print("SSL certificate verification failed:", e)
             choice = input("Continue connecting despite SSL certificate issue? (y/n): ").lower()
