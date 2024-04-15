@@ -6,13 +6,17 @@
 ##  Contributor(s): 0xGuigui
 ##
 
-import importlib.util
 import os
-from include.lib import *
-from include.funcs_library import *
+import importlib.util
+import inspect
 from glob import glob
+from include.lib import vim
+from include.funcs_library import *
 
 def load_commands():
+    """
+    Load commands from the commands directory.
+    """
     commands = {}
     command_files = glob("src/shell/commands/*.py")
     for file_path in command_files:
@@ -24,6 +28,9 @@ def load_commands():
     return commands
 
 def prompt(si):
+    """
+    Prompt the user for commands.
+    """
     content = si.RetrieveContent()
     about = content.about
     host_view = content.viewManager.CreateContainerView(content.rootFolder, [vim.HostSystem], True)
