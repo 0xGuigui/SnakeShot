@@ -12,3 +12,5 @@ config.json
 downloaded_vms/
 vm_names.csv
 vm_names.txt
+vms.csv
+vms.txt
