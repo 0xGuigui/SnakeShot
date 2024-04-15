@@ -12,11 +12,6 @@ from include.funcs_library import *
 def run_check_update():
     check_update()
 
-import requests
-import re
-import ast
-from colorama import Fore, Style
-
 def check_update():
     """
     Check for updates.
@@ -53,5 +48,12 @@ def check_update():
             print(update_info)
         else:
             print("Could not find update information for the latest version.")
+
+        # Ask the user if they want to update
+        confirm = input("Do you want to update the program? (yes/no): ")
+        if confirm.lower() == 'yes':
+            # Update the program
+            os.system("git clone https://github.com/0xGuigui/SnakeShot.git")
+            print("The program has been updated. Please restart the program.")
     else:
         print("Version mismatch, probably due to a local development version.")
