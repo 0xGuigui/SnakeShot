@@ -7,6 +7,7 @@
 ##
 
 from include.lib import *
+from src.shell.commands.check_update import check_update
 
 def vAuth():
     MAX_ATTEMPTS = 3
@@ -52,6 +53,8 @@ def vAuth():
             # Tentative de connexion avec le certificat SSL
             si = SmartConnect(host=host, user=user, pwd=pwd, sslContext=s)
             print("Connected to vSphere, with SSL certificate verification")
+            check_update(no_update=True)
+
             # save = input("Do you want to save these credentials? (y/n): ").lower()
             # if save == 'y':
             #     # Sauvegarde des informations de connexion
@@ -74,6 +77,7 @@ def vAuth():
                     s.verify_mode = ssl.CERT_NONE
                     si = SmartConnect(host=host, user=user, pwd=pwd, sslContext=s)
                     print("Connected to vSphere (without SSL certificate verification)")
+                    check_update(no_update=True)
                     return si
                 else:
                     print("Returning to login.")

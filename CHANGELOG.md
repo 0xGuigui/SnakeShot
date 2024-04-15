@@ -1,5 +1,8 @@
 # SnakeShot
 
+## 0.4.0
+- Added version checking at program start
+
 ## 0.3.1 (2024-04-15)
 - Fixed useless dependencies
 

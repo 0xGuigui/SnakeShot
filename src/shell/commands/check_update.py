@@ -10,9 +10,10 @@ from include.lib import *
 from include.funcs_library import *
 
 def run_check_update():
-    check_update()
+    no_update = None
+    check_update(no_update)
 
-def check_update():
+def check_update(no_update=None):
     """
     Check for updates.
     """
@@ -34,9 +35,12 @@ def check_update():
 
     # Compare the version numbers
     if github_version == local_version:
+        print(github_version, local_version)
         print(f"{Fore.GREEN}The program is up to date.{Style.RESET_ALL}")
     elif github_version > local_version:
-        print("An update is available.")
+        print(f"{Fore.RED}The program is outdated.{Style.RESET_ALL}")
+        print(f"Current version: {local_version}")
+        print(f"Latest version: {github_version}")
         # Download the changelog
         response = requests.get("https://raw.githubusercontent.com/0xGuigui/SnakeShot/main/CHANGELOG.md")
         changelog = response.text
@@ -50,10 +54,11 @@ def check_update():
             print("Could not find update information for the latest version.")
 
         # Ask the user if they want to update
-        confirm = input("Do you want to update the program? (yes/no): ")
-        if confirm.lower() == 'yes':
-            # Update the program
-            os.system("git clone https://github.com/0xGuigui/SnakeShot.git")
-            print("The program has been updated. Please restart the program.")
-    else:
-        print("Version mismatch, probably due to a local development version.")
+        if no_update == False or no_update == None:
+            confirm = input("Do you want to update the program? (yes/no): ")
+            if confirm.lower() == 'yes':
+                # Update the program
+                os.system("git pull")
+                print("The program has been updated. Please restart the program.")
+            else:
+                print("Version mismatch, probably due to a local development version.")
