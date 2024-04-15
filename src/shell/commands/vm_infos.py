@@ -1,5 +1,5 @@
 ##
-##  vm_state.py
+##  vm_infos.py
 ##  src/shell/commands
 ##
 ##  Created by 0xGuigui on 15/04/2024.
@@ -9,11 +9,13 @@
 from include.lib import *
 from lib.get_obj import *
 
-def run_vm_state(si):
-    vm_state(si)
+def run_vm_infos(si):
+    """
+    Run VM state.
+    """
+    vm_infos(si)
 
-
-def vm_state(si, vm_name=None):
+def vm_infos(si, vm_name=None):
     """
     Get the state of a VM.
     """
