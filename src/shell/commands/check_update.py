@@ -10,6 +10,9 @@ from include.lib import *
 from include.funcs_library import *
 
 def run_check_update():
+    """
+    Run check update.
+    """
     no_update = None
     check_update(no_update)
 
@@ -54,7 +57,7 @@ def check_update(no_update=None):
             print("Could not find update information for the latest version.")
 
         # Ask the user if they want to update
-        if no_update == False or no_update == None:
+        if no_update is False or no_update is None:
             confirm = input("Do you want to update the program? (yes/no): ")
             if confirm.lower() == 'yes':
                 # Update the program

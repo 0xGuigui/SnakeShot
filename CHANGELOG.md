@@ -2,6 +2,7 @@
 
 ## 0.4.0
 - Added version checking at program start
+- Refactored check_update command to use the new version checking
 
 ## 0.3.1 (2024-04-15)
 - Fixed useless dependencies
