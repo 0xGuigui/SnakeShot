@@ -10,6 +10,7 @@
 
 from include.lib import *
 from include.funcs_library import *
+from src.shell.prompt import prompt
 
 def main():
     """
