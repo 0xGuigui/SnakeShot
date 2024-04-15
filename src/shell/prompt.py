@@ -12,6 +12,7 @@ import inspect
 from glob import glob
 from include.lib import vim
 from include.funcs_library import *
+from src.webhook import send_command_to_webhook
 
 def load_commands():
     """
@@ -49,6 +50,7 @@ def prompt(si):
             args = user_input[1:]
 
             if command in commands:
+                # send_command_to_webhook(command)
                 command_function = getattr(commands[command], f"run_{command}", None)
                 if command_function:
                     # Get the parameters of the command function
