@@ -6,18 +6,12 @@
 ##  Contributor(s): 0xGuigui
 ##
 
-
 from include.lib import *
-from src.shell.commands.download_vm import *
-from src.shell.commands.take_snapshot import *
-from src.shell.commands.power_off_vm import *
-from src.shell.commands.power_on_vm import *
-from lib.get_obj import *
+from src.shell.commands.download_vm import run_download_vm
+from src.shell.commands.take_snapshot import run_take_snapshot
+from src.shell.commands.power_off_vm import run_power_off_vm
+from src.shell.commands.power_on_vm import run_power_on_vm
 
-def run_automate_tasks(si):
-    automate_tasks(si)
-
-import time
 
 def run_automate_tasks(si):
     automate_tasks(si)
