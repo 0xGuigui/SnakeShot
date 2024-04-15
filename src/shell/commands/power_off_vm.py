@@ -7,7 +7,7 @@
 ##
 
 from include.lib import *
-from src.get_obj import *
+from lib.get_obj import *
 
 def run_power_off_vm(si):
     vm_name = input("Enter the name of the VM you want to power off: ")
@@ -23,6 +23,11 @@ def power_off_vm(si, vm_name, shutdown_type=None):
                 print(f"Virtual machine {vm_name} is already powered off.")
                 return
             if shutdown_type is None:
+                print("If you need help to shutdown the virtual machine, there is an explanation below:")
+                print("Guest OS shutdown: This will initiate a graceful shutdown of the guest operating system.")
+                print("Power off: This will power off the virtual machine.")
+                print("Immediate shutdown: This will immediately power off the virtual machine.")
+                print("Please note that the immediate shutdown option may result in data loss, so privilege Guest OS shutdown, if possible.")
                 print("Choose the shutdown mode:")
                 print("1. Guest OS shutdown")
                 print("2. Power off")

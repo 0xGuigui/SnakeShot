@@ -7,7 +7,7 @@
 ##
 
 from include.lib import *
-from src.get_obj import *
+from lib.get_obj import *
 
 def run_download_vm(si):
     load_from_file = input("Do you want to load VM names from a file? (Y/N): ")
