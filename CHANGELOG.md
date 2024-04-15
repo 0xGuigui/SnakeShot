@@ -1,5 +1,8 @@
 # SnakeShot
 
+## 0.3.1 (2024-04-15)
+- Fixed useless dependencies
+
 ## 0.3.0 (2024-04-15)
 - Added Changelog
 - Added automated_task command to run automatically some tasks like backup, restore, etc scheduled
