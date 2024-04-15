@@ -5,6 +5,7 @@
 - Refactored check_update command to use the new version checking
 - Refactored SnakeShot to be more pylint compliant
 - Added basic webhook sender
+- Update power_off_vm.py, disabled Instant Stop VM, because isn't implemented in the API
 
 ## 0.3.1 (2024-04-15)
 - Fixed useless dependencies
