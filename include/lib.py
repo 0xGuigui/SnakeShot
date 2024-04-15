@@ -19,6 +19,7 @@ import importlib
 import csv
 import time
 import inspect
+import ast
 
 from pyVim.connect import SmartConnect, Disconnect
 from pyVmomi import vim, vmodl

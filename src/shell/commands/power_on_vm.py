@@ -7,7 +7,7 @@
 ##
 
 from include.lib import *
-from src.get_obj import *
+from lib.get_obj import *
 
 def run_power_on_vm(si):
     vm_name = input("Enter the name of the VM you want to power on: ")

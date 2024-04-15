@@ -7,7 +7,7 @@
 ##
 
 from include.lib import *
-from src.get_obj import *
+from lib.get_obj import *
 
 def run_list_backups(si):
     list_backups(si)

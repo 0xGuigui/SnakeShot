@@ -51,3 +51,40 @@ def list_vms(si, file_format=None):
     else:
         for vm_name in vm_names:
             print(vm_name)
+
+# def list_vms(si, file_format=None):
+#     """
+#     List all VMs.
+#     """
+#     content = si.RetrieveContent()
+
+#     container = content.viewManager.CreateContainerView(content.rootFolder, [vim.VirtualMachine], True)
+#     vms = container.view
+#     container.Destroy()
+
+#     vms.sort(key=lambda vm: vm.name)
+
+#     if file_format:
+#         if file_format.lower() == 'txt':
+#             with open('vms.txt', 'w') as file:
+#                 for vm in vms:
+#                     file.write(f"{vm.name}\n")
+#             print("VM names saved to vms.txt")
+#         elif file_format.lower() == 'csv':
+#             with open('vms.csv', 'w', newline='') as file:
+#                 writer = csv.writer(file)
+#                 writer.writerow(["VM Name", "CPU", "RAM", "Storage", "Storage Used", "Storage Free", "RAM Usage", "CPU Usage"])
+#                 for vm in vms:
+#                     cpu = vm.config.hardware.numCPU
+#                     ram = vm.config.hardware.memoryMB
+#                     storage = sum([disk.capacityInKB for disk in vm.config.hardware.device if isinstance(disk, vim.vm.device.VirtualDisk)]) / 1024 / 1024
+#                     storage_used = vm.summary.storage.committed / 1024 / 1024 / 1024
+#                     storage_free = storage - storage_used
+#                     ram_usage = vm.summary.quickStats.guestMemoryUsage
+#                     ram_free = ram - ram_usage
+#                     cpu_usage = vm.summary.quickStats.overallCpuUsage / 1000  # Convert MHz to GHz
+#                     writer.writerow([vm.name, cpu, ram, storage, storage_used, storage_free, ram_usage, ram_free, cpu_usage])
+#             print("VM details saved to vms.csv")
+#     else:
+#         for vm in vms:
+#             print(vm.name)
