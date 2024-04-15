@@ -9,7 +9,7 @@
 from include.lib import *
 from include.funcs_library import *
 
-version_number = "0.2.0"
+version_number = "0.3.0"
 
 def run_version():
     version(version_number)
