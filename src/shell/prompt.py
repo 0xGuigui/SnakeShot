@@ -64,30 +64,30 @@ def prompt(si):
     commands = load_commands()
     while True:
         ip_address = hosts[0].summary.managementServerIp if hosts else "Unknown"  # Assuming there's at least one host
-        user_input = input(f"SnakeShot - Server: {ip_address} > ").strip()
-        if user_input == "exit":
-            break
-        else:
-            user_input = user_input.split()
-            command = user_input[0]
-            args = user_input[1:]
+        user_input = input(f"SnakeShot - Server: {ip_address} > ").strip().split()
 
-            if command in commands:
-                # send_command_to_webhook(command)
-                command_function = getattr(commands[command], f"run_{command}", None)
-                if command_function:
-                    # Get the parameters of the command function
-                    params = inspect.signature(command_function).parameters
+        if not user_input:
+            continue
 
-                    try:
-                        # If 'si' is a parameter of the function, pass it
-                        if 'si' in params:
-                            command_function(si, *args)
-                        else:
-                            command_function(*args)
-                    except Exception as e:
-                        print(f"An error occurred while executing the command {command}: {e}")
-                else:
-                    print(f"Command {command} does not have a run_{command} function.")
+        command = user_input[0]
+        args = user_input[1:]
+
+        if command in commands:
+            # send_command_to_webhook(command)
+            command_function = getattr(commands[command], f"run_{command}", None)
+            if command_function:
+                # Get the parameters of the command function
+                params = inspect.signature(command_function).parameters
+
+                try:
+                    # If 'si' is a parameter of the function, pass it
+                    if 'si' in params:
+                        command_function(si, *args)
+                    else:
+                        command_function(*args)
+                except Exception as e:
+                    print(f"An error occurred while executing the command {command}: {e}")
             else:
-                print("Command not found")
+                print(f"Command {command} does not have a run_{command} function.")
+        else:
+            print("Command not found")
