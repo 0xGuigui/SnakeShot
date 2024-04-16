@@ -6,6 +6,9 @@
 - Refactored SnakeShot to be more pylint compliant
 - Added basic webhook sender
 - Update power_off_vm.py, disabled Instant Stop VM, because isn't implemented in the API
+- Added checking timeout for the API requests
+- Added ZSTD compression for the snapshots
+- Added backup_vm command to backup a VM
 
 ## 0.3.1 (2024-04-15)
 - Fixed useless dependencies
