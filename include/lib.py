@@ -20,6 +20,9 @@ import csv
 import time
 import inspect
 import ast
+import zstd
+import threading
+import tarfile
 
 from pyVim.connect import SmartConnect, Disconnect
 from pyVmomi import vim, vmodl

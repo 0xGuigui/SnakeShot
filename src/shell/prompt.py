@@ -28,10 +28,33 @@ def load_commands():
         commands[file_name] = module
     return commands
 
+def check_connection(si):
+    """
+    Check the connection to vSphere.
+    """
+    try:
+        si.CurrentTime()
+        return True
+    except vim.fault.NotAuthenticated:
+        return False
+
+def keep_alive(si):
+    """
+    Keep the connection to vSphere alive.
+    """
+    while True:
+        if not check_connection(si):
+            print("Disconnected from vSphere. Reconnecting...")
+            si = vAuth()
+        time.sleep(60)  # Check the connection every minute
+
+
 def prompt(si):
     """
     Prompt the user for commands.
     """
+    threading.Thread(target=keep_alive, args=(si,), daemon=True).start()
+
     content = si.RetrieveContent()
     about = content.about
     host_view = content.viewManager.CreateContainerView(content.rootFolder, [vim.HostSystem], True)
